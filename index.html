@@ -57,12 +57,17 @@
 
     .category > main > .icon {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         position: relative;
         align-items: center;
         background: #f6f6f7;
         padding: 15px;
+    }
+    .category > main > .icon > div {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
 
@@ -119,6 +124,10 @@
         async function addIconDiv(icon) {
             let iconParse = new DOMParser().parseFromString(`<div data-name="${icons[icon]}" data-icon="${icon}" class="icon">
                  <img loading="lazy" src="/icons/${icon}.svg" alt="${icons[icon]}">
+                 <div>
+                        <div>${icons[icon]}</div>
+                        <div>${icon}</div>
+                  </div>
      </div>`, "text/html");
             parse.body.children[0].children[1].appendChild(iconParse.body.children[0])
         }
