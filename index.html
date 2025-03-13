@@ -1,8 +1,12 @@
 <title>Lucide 图标</title>
 <script src="index.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.css" integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.css"
+      integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.js" integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.js"
+        integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
     #actions {
@@ -12,10 +16,12 @@
         justify-content: end;
         align-items: center;
     }
+
     #actions > * {
         margin-left: 4px;
         font-size: 20px;
     }
+
     body {
         font-family: Arial, sans-serif;
     }
@@ -60,7 +66,6 @@
     }
 
 
-
     #popup {
         display: none;
         position: fixed;
@@ -82,9 +87,9 @@
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
     烤肉串 <input name="type" type="radio" value="下划线">
     SVG <input name="type" type="radio" value="SVG">
-  <select style="padding: 4px" id="category-filter">
-	<option value="">全部</option>
-</select>
+    <select style="padding: 4px" id="category-filter">
+        <option value="">全部</option>
+    </select>
     <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
 </div>
 <div id="categories"></div>
@@ -111,7 +116,7 @@
          </main>
      </div>`, "text/html");
 
-        async function addIconDiv (icon) {
+        async function addIconDiv(icon) {
             let iconParse = new DOMParser().parseFromString(`<div data-name="${icons[icon]}" data-icon="${icon}" class="icon">
                  <img loading="lazy" src="/icons/${icon}.svg" alt="${icons[icon]}">
      </div>`, "text/html");
@@ -124,103 +129,104 @@
     })
 
 
+    const categoryFilter = document.getElementById('category-filter');
+    Object.entries(categories).forEach(([category, zhName]) => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = zhName;
+        categoryFilter.appendChild(option);
+    });
 
-        const categoryFilter = document.getElementById('category-filter');
-        Object.entries(categories).forEach(([category, zhName]) => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = zhName;
-            categoryFilter.appendChild(option);
-        });
 
-
-$("#category-filter").change(function () {
-                const selectedCategory = $(this).val();
-                if (selectedCategory === "") {
-                    $(".category").show();
+    $("#category-filter").change(function () {
+        const selectedCategory = $(this).val();
+        if (selectedCategory === "") {
+            $(".category").show();
+        } else {
+            $(".category").each(function () {
+                if ($(this).data("category") === selectedCategory) {
+                    $(this).show();
                 } else {
-                    $(".category").each(function () {
-                        if ($(this).data("category") === selectedCategory) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
+                    $(this).hide();
                 }
             });
+        }
+    });
 
-    $(document).ready(function(){
-        $("#search").change(function (){
+    $(document).ready(function () {
+        $("#search").change(function () {
             let search = $(this).val().trim().toLowerCase()
             if (!search) {
-                $(".icon").children("div").css('display',"none")
+                $(".icon").children("div").css('display', "none")
                 $(".icon").show()
                 return
             }
-            $(".icon").each(function (){
+            $(".icon").each(function () {
                 let icon = $(this).attr("data-icon").toLowerCase()
                 let name = $(this).attr("data-name").toLowerCase()
                 if (name.includes(search) || icon.includes(search)) {
                     $(this).show()
-                    $(this).children("div").css('display',"flex")
+                    $(this).children("div").css('display', "flex")
                 } else {
                     $(this).hide()
-                    $(this).children("div").css('display',"none")
+                    $(this).children("div").css('display', "none")
                 }
             })
         })
-   
-        $(".icon").click(function (){
+
+        $(".icon").click(function () {
             let icon = $(this).attr("data-icon")
             let name = $(this).attr("data-name")
             let copyValue;
-                if ($('input[name="type"]:checked').val() === '驼峰') {
-                    copyValue = icon
-                       .split('-')
-                       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                       .join('')
-                } else if ($('input[name="type"]:checked').val() === '下划线') {
-                    copyValue = icon
-                } else if ($('input[name="type"]:checked').val() === 'SVG') {
-                    $.ajax({
-                        url: `/icons/${icon}.svg`,
-                        type: 'GET',
-                        dataType: 'text',
-                        success: function (svgContent) {
-                            navigator.clipboard.writeText(svgContent).then(function () {
-                                $("#popup").text("【" +name + "】SVG复制成功");
-                                $("#popup").show();
-                                setTimeout(() => $("#popup").hide(), 1000)
-                            }).catch(function (error) {
-                                $("#popup").text("复制失败");
-                                $("#popup").show();
-                                setTimeout(() => $("#popup").hide(), 1000)
-                            });
-                        },
-                        error: function () {
-                            $("#popup").text("读取 SVG 文件失败");
+            if ($('input[name="type"]:checked').val() === '驼峰') {
+                copyValue = icon
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join('')
+            } else if ($('input[name="type"]:checked').val() === '下划线') {
+                copyValue = icon
+            } else if ($('input[name="type"]:checked').val() === 'SVG') {
+                $.ajax({
+                    url: `/icons/${icon}.svg`,
+                    type: 'GET',
+                    dataType: 'text',
+                    success: function (svgContent) {
+                        navigator.clipboard.writeText(svgContent).then(function () {
+                            $("#popup").text("【" + name + "】SVG复制成功");
                             $("#popup").show();
                             setTimeout(() => $("#popup").hide(), 1000)
-                        }
-                    });
-                    return;
-                }
-                navigator.clipboard.writeText(copyValue).then(function () {
-                    $("#popup").text(name + "【" + copyValue + "】 复制成功");
-                    $("#popup").show();
-                    setTimeout(() => $("#popup").hide(), 1000)
-                }).catch(function (error) {
-                    $("#popup").text("复制失败");
-                    $("#popup").show();
-                    setTimeout(() => $("#popup").hide(), 1000)
+                        }).catch(function (error) {
+                            $("#popup").text("复制失败");
+                            $("#popup").show();
+                            setTimeout(() => $("#popup").hide(), 1000)
+                        });
+                    },
+                    error: function () {
+                        $("#popup").text("读取 SVG 文件失败");
+                        $("#popup").show();
+                        setTimeout(() => $("#popup").hide(), 1000)
+                    }
                 });
+                return;
+            }
+            navigator.clipboard.writeText(copyValue).then(function () {
+                $("#popup").text(name + "【" + copyValue + "】 复制成功");
+                $("#popup").show();
+                setTimeout(() => $("#popup").hide(), 1000)
+            }).catch(function (error) {
+                $("#popup").text("复制失败");
+                $("#popup").show();
+                setTimeout(() => $("#popup").hide(), 1000)
+            });
         })
-        
-        
-        $('.icon').webuiPopover({content: function() {
-			let icon = $(this).attr("data-icon")
-		    let name = $(this).attr("data-name")
-			return `<div>${name}</div><div>${icon}</div>`
-        }, trigger: "hover"})
+
+
+        $('.icon').webuiPopover({
+            content: function () {
+                let icon = $(this).attr("data-icon")
+                let name = $(this).attr("data-name")
+                return `<div>${name}</div><div>${icon}</div>`
+            }, trigger: "hover"
+        })
     });
 </script>
