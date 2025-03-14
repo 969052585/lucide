@@ -12,6 +12,7 @@
     #actions {
         position: sticky;
         top: 5px;
+          z-index: 1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -23,10 +24,18 @@
     }
     span > .settings {
       display: none;
+                z-index: 2;
+       background: white;
+          position: absolute;
+          top: calc(100% + 10px);
     }
        span:hover > .settings {
       display: unset;
     }
+
+      .settings > .setting {
+             max-width: 300px;
+   }
     body {
         font-family: Arial, sans-serif;
     }
@@ -127,7 +136,7 @@
     <p>复制成功</p>
 </div>
 <div id="actions">
-    <span >
+    <span style="position: relative;">
           样式设置
           <div class="settings">
         <div class="setting">
