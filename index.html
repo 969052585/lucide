@@ -17,11 +17,16 @@
         align-items: center;
     }
 
-    #actions > * {
+    #actions  * {
         margin-left: 4px;
         font-size: 20px;
     }
-
+    span > .settings {
+      display: none;
+    }
+       span:hover > .settings {
+      display: unset;
+    }
     body {
         font-family: Arial, sans-serif;
     }
@@ -122,7 +127,9 @@
     <p>复制成功</p>
 </div>
 <div id="actions">
-    <span>样式设置
+    <span >
+          样式设置
+          <div class="settings">
         <div class="setting">
             <label for="color">颜色</label>
             <input type="color" id="color">
@@ -141,6 +148,7 @@
             <label for="absolute-stroke">固定描边宽度</label>
             <input type="checkbox" id="absolute-stroke">
         </div>
+                </div>
     </span>
 
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
