@@ -13,7 +13,7 @@
         position: sticky;
         top: 5px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
     }
 
@@ -65,6 +65,7 @@
         background: #f6f6f7;
         padding: 15px;
     }
+
     .category > main > .icon > div {
         margin-left: 2px;
         display: none;
@@ -85,12 +86,13 @@
         z-index: 1000;
     }
 
-      .webui-popover .webui-popover-content>div:first-child {
-            width: unset;
-      }
-      .webui-popover .webui-popover-content>div {
-            text-align: center;
-      }
+    .webui-popover .webui-popover-content > div:first-child {
+        width: unset;
+    }
+
+    .webui-popover .webui-popover-content > div {
+        text-align: center;
+    }
 </style>
 <style>
     :root {
@@ -99,7 +101,7 @@
         --customize-size: 24px;
     }
 
-    .icon>svg {
+    .icon > svg {
         will-change: width, height, stroke-width, stroke;
         color: var(--customize-color);
         width: var(--customize-size);
@@ -107,7 +109,7 @@
         stroke-width: calc(var(--customize-strokeWidth, 2) * 1px);
     }
 
-    html.absolute-stroke-width .icon>svg {
+    html.absolute-stroke-width .icon > svg {
         stroke-width: calc(var(--customize-strokeWidth, 2) * 24 / var(--customize-size, 24) * 1px);
     }
 
@@ -120,36 +122,27 @@
     <p>复制成功</p>
 </div>
 <div id="actions">
-      <span>样式设置
-      <div>
-<div class="setting">
-    <label for="color">颜色</label>
-    <input type="color" id="color">
-</div>
-<div class="setting">
-    <label for="stroke-width">描边宽度</label>
-    <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
-    <span id="stroke-width-value">2px</span>
-</div>
-<div class="setting">
-    <label for="size">大小</label>
-    <input type="range" id="size" name="size" min="16" max="48" value="24">
-    <span id="size-value">24px</span>
-</div>
-<div class="setting">
-    <label for="absolute-stroke">固定描边宽度</label>
-    <input type="checkbox" id="absolute-stroke">
-</div>
-<div data-name="手" data-icon="hand" class="icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path>
-        <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path>
-        <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path>
-        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
-    </svg>
-</div></span>
-      
+    <span>样式设置
+        <div class="setting">
+            <label for="color">颜色</label>
+            <input type="color" id="color">
+        </div>
+        <div class="setting">
+            <label for="stroke-width">描边宽度</label>
+            <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
+            <span id="stroke-width-value">2px</span>
+        </div>
+        <div class="setting">
+            <label for="size">大小</label>
+            <input type="range" id="size" name="size" min="16" max="48" value="24">
+            <span id="size-value">24px</span>
+        </div>
+        <div class="setting">
+            <label for="absolute-stroke">固定描边宽度</label>
+            <input type="checkbox" id="absolute-stroke">
+        </div>
+    </span>
+
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
     烤肉串 <input name="type" type="radio" value="下划线">
     SVG <input name="type" type="radio" value="SVG">
@@ -157,12 +150,15 @@
         <option value="">全部</option>
     </select>
     <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
-      
+
 </div>
 <div id="categories"></div>
 <script>
     const categoryIcons = {}
-    Object.entries(iconDetail).forEach(([icon, {categories, tags}]) => {
+    Object.entries(iconDetail).forEach(([icon, {
+        categories,
+        tags
+    }]) => {
         (categories || []).forEach(category => {
             if (categoryIcons[category]) categoryIcons[category].push(icon)
             else categoryIcons[category] = [icon]
@@ -171,7 +167,10 @@
 
     const categoriesDiv = document.getElementById('categories');
     Object.entries(categories).map(async ([category, zhName]) => {
-        const {icon, title} = categoryDetail[category]
+        const {
+            icon,
+            title
+        } = categoryDetail[category]
         // const {categories, tags} = iconDetail[category]
         let parse = new DOMParser().parseFromString(`<div class="category"  data-category="${category}">
          <header>
@@ -297,23 +296,24 @@
                 let icon = $(this).attr("data-icon")
                 let name = $(this).attr("data-name")
                 return `<div>${name}</div><div>${icon}</div>`
-            }, trigger: "hover"
+            },
+            trigger: "hover"
         })
         $('.icon > img').each(function () {
-              setTimeout(() => {
-                    const img = this;
-                    let src = new URL(img.src).pathname;
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('GET', src, true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
-                            img.parentNode.replaceChild(svg, img);
-                        }
-                    };
-                    xhr.send()
-              },50)
-       })
+            setTimeout(() => {
+                const img = this;
+                let src = new URL(img.src).pathname;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', src, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
+                        img.parentNode.replaceChild(svg, img);
+                    }
+                };
+                xhr.send()
+            }, 50)
+        })
     });
 </script>
 
