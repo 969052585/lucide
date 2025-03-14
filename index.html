@@ -92,15 +92,64 @@
             text-align: center;
       }
 </style>
+<style>
+    :root {
+        --customize-color: black;
+        --customize-strokeWidth: 2px;
+        --customize-size: 24px;
+    }
+
+    .icon>svg {
+        will-change: width, height, stroke-width, stroke;
+        color: var(--customize-color);
+        width: var(--customize-size);
+        height: var(--customize-size);
+        stroke-width: calc(var(--customize-strokeWidth, 2) * 1px);
+    }
+
+    html.absolute-stroke-width .icon>svg {
+        stroke-width: calc(var(--customize-strokeWidth, 2) * 24 / var(--customize-size, 24) * 1px);
+    }
+
+    .setting {
+        margin-bottom: 15px;
+    }
+</style>
 <meta charset="utf8">
 <div id="popup">
     <p>复制成功</p>
 </div>
 <div id="actions">
+      <span>样式设置
       <div>
-      <input id="color" type="color">
-      </div>
-      <div>
+<div class="setting">
+    <label for="color">颜色</label>
+    <input type="color" id="color">
+</div>
+<div class="setting">
+    <label for="stroke-width">描边宽度</label>
+    <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
+    <span id="stroke-width-value">2px</span>
+</div>
+<div class="setting">
+    <label for="size">大小</label>
+    <input type="range" id="size" name="size" min="16" max="48" value="24">
+    <span id="size-value">24px</span>
+</div>
+<div class="setting">
+    <label for="absolute-stroke">固定描边宽度</label>
+    <input type="checkbox" id="absolute-stroke">
+</div>
+<div data-name="手" data-icon="hand" class="icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path>
+        <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path>
+        <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path>
+        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+    </svg>
+</div></span>
+      
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
     烤肉串 <input name="type" type="radio" value="下划线">
     SVG <input name="type" type="radio" value="SVG">
@@ -108,7 +157,7 @@
         <option value="">全部</option>
     </select>
     <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
-      </div>
+      
 </div>
 <div id="categories"></div>
 <script>
@@ -265,5 +314,37 @@
                     xhr.send()
               },50)
        })
+    });
+</script>
+
+<script>
+    const colorInput = document.getElementById('color');
+    const strokeWidthInput = document.getElementById('stroke-width');
+    const strokeWidthValue = document.getElementById('stroke-width-value');
+    const sizeInput = document.getElementById('size');
+    const sizeValue = document.getElementById('size-value');
+    const absoluteStrokeInput = document.getElementById('absolute-stroke');
+    const root = document.documentElement;
+
+    colorInput.addEventListener('change', function () {
+        root.style.setProperty('--customize-color', this.value);
+    });
+
+    strokeWidthInput.addEventListener('input', function () {
+        strokeWidthValue.innerHTML = this.value + 'px';
+        root.style.setProperty('--customize-strokeWidth', this.value);
+    });
+
+    sizeInput.addEventListener('input', function () {
+        sizeValue.innerHTML = this.value + 'px';
+        root.style.setProperty('--customize-size', this.value);
+    });
+
+    absoluteStrokeInput.addEventListener('change', function () {
+        if (this.checked) {
+            root.classList.add('absolute-stroke-width');
+        } else {
+            root.classList.remove('absolute-stroke-width');
+        }
     });
 </script>
