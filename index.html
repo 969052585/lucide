@@ -13,7 +13,7 @@
         position: sticky;
         top: 5px;
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -56,6 +56,8 @@
     }
 
     .category > main > .icon {
+        min-width: 56px;
+        min-height: 56px;
         display: flex;
         justify-content: center;
         position: relative;
@@ -64,6 +66,7 @@
         padding: 15px;
     }
     .category > main > .icon > div {
+        margin-left: 2px;
         display: none;
         flex-direction: column;
         justify-content: center;
@@ -94,6 +97,10 @@
     <p>复制成功</p>
 </div>
 <div id="actions">
+      <div>
+      <input id="color" type="color">
+      </div>
+      <div>
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
     烤肉串 <input name="type" type="radio" value="下划线">
     SVG <input name="type" type="radio" value="SVG">
@@ -101,6 +108,7 @@
         <option value="">全部</option>
     </select>
     <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
+      </div>
 </div>
 <div id="categories"></div>
 <script>
