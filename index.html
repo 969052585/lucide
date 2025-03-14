@@ -243,17 +243,19 @@
             }, trigger: "hover"
         })
         $('.icon > img').each(function () {
-              const img = this;
-              let src = new URL(img.src).pathname;
-              const xhr = new XMLHttpRequest();
-              xhr.open('GET', src, true);
-              xhr.onreadystatechange = function () {
-                  if (xhr.readyState === 4 && xhr.status === 200) {
-                      const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
-                      img.parentNode.replaceChild(svg, img);
-                  }
-              };
-              setTimeout(xhr.send,50)
+              setTimeout(() => {
+                    const img = this;
+                    let src = new URL(img.src).pathname;
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', src, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
+                            img.parentNode.replaceChild(svg, img);
+                        }
+                    };
+                    xhr.send()
+              },50)
        })
     });
 </script>
