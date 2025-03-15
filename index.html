@@ -14,7 +14,7 @@
         top: 5px;
         z-index: 1;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -23,17 +23,25 @@
         font-size: 20px;
     }
 
-    span>.settings {
+    .settings {
+        margin-right: 2px;
+    }
+
+    
+
+    .settings>.setting {
         display: none;
         z-index: 2;
         background: white;
         position: absolute;
         top: calc(100% + 10px);
-        left: 0;
+        left: -8px;
+        padding: 8px;
+        border-radius: 5px;
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    span:hover>.settings {
+    .settings:hover>.setting, .settings.in>.setting {
         display: unset;
     }
 
@@ -143,42 +151,42 @@
 </div>
 <div id="actions">
     <span class="settings" style="position: relative;">
-        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="5551" width="16" height="16">
+        <svg title="样式设置" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5551"
+            width="24" height="24">
             <path
                 d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0S464 796.8 368 736c-22.4-12.8-41.6-19.2-57.6-19.2-51.2 0-83.2 44.8-86.4 83.2z m336-124.8l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32 3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2h22.4c12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2z m-336-256c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2-28.8 0-51.2-22.4-51.2-51.2z m96-134.4c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6-22.4 0-41.6-19.2-41.6-41.6zM457.6 208c0-12.8 12.8-25.6 25.6-25.6s25.6 12.8 25.6 25.6-12.8 25.6-25.6 25.6-25.6-12.8-25.6-25.6zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32-211.2-3.2-380.8 169.6-380.8 384zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6l9.6-19.2C569.6 560 790.4 140.8 803.2 112c6.4-19.2-3.2-32-19.2-32-6.4-3.2-12.8 0-19.2 6.4z"
                 p-id="5552" fill="#2c2c2c"></path>
         </svg>
-        <div  class="setting">
+        <div class="setting">
             <div>
                 <label for="color">颜色</label>
                 <input type="color" id="color">
             </div>
-            <div >
+            <div>
                 <label for="stroke-width">描边宽度</label>
                 <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
                 <span id="stroke-width-value">2px</span>
             </div>
-            <div >
+            <div>
                 <label for="size">大小</label>
                 <input type="range" id="size" name="size" min="16" max="48" value="24">
                 <span id="size-value">24px</span>
             </div>
-            <div >
+            <div>
                 <label for="absolute-stroke">固定描边宽度</label>
                 <input type="checkbox" id="absolute-stroke">
             </div>
         </div>
     </span>
-
-    驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
-    烤肉串 <input name="type" type="radio" value="下划线">
-    SVG <input name="type" type="radio" value="SVG">
-    <select style="padding: 4px" id="category-filter">
-        <option value="">全部</option>
-    </select>
-    <input id="search" style="padding: 3px" type="search" placeholder="图标名称" />
-
+    <div>
+        驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
+        烤肉串 <input name="type" type="radio" value="下划线">
+        SVG <input name="type" type="radio" value="SVG">
+        <select style="padding: 4px" id="category-filter">
+            <option value="">全部</option>
+        </select>
+        <input id="search" style="padding: 3px" type="search" placeholder="图标名称" />
+    </div>
 </div>
 <div id="categories"></div>
 <script>
@@ -326,10 +334,13 @@
             },
             trigger: "hover"
         })
+        $(".settings > svg").click(function () {
+            $(this).parent().toggleClass("in")
+        })
         $('.icon').each(function () {
             setTimeout(() => {
                 let src = this.dataset.src;
-                if(!src) return
+                if (!src) return
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', src, true);
                 let that = this
