@@ -1,41 +1,46 @@
 <title>Lucide 图标</title>
 <script src="index.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.css"
-      integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.js"
-        integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
     #actions {
         position: sticky;
         top: 5px;
-          z-index: 1;
+        z-index: 1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
     }
 
-    #actions  * {
+    #actions * {
         margin-left: 4px;
         font-size: 20px;
     }
-    span > .settings {
-      display: none;
-                z-index: 2;
-       background: white;
-          position: absolute;
-          top: calc(100% + 10px);
-    }
-       span:hover > .settings {
-      display: unset;
+
+    span>.settings {
+        display: none;
+        z-index: 2;
+        background: white;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
     }
 
-      .settings > .setting {
-             max-width: 300px;
-   }
+    span:hover>.settings {
+        display: unset;
+    }
+
+    .settings>.setting {
+        max-width: 300px;
+    }
+
     body {
         font-family: Arial, sans-serif;
     }
@@ -47,29 +52,29 @@
         padding: 10px;
     }
 
-    .category > header {
+    .category>header {
         display: flex;
         align-items: center;
         font-weight: bold;
         margin-bottom: 5px;
     }
 
-    .category > header img {
+    .category>header img {
         height: 100%;
         margin-right: 10px;
     }
 
-    .category > main {
+    .category>main {
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
     }
 
-    .category > main img {
+    .category>main img {
         height: 40px;
     }
 
-    .category > main > .icon {
+    .category>main>.icon {
         min-width: 56px;
         min-height: 56px;
         display: flex;
@@ -80,7 +85,7 @@
         padding: 15px;
     }
 
-    .category > main > .icon > div {
+    .category>main>.icon>div {
         margin-left: 2px;
         display: none;
         flex-direction: column;
@@ -100,11 +105,11 @@
         z-index: 1000;
     }
 
-    .webui-popover .webui-popover-content > div:first-child {
+    .webui-popover .webui-popover-content>div:first-child {
         width: unset;
     }
 
-    .webui-popover .webui-popover-content > div {
+    .webui-popover .webui-popover-content>div {
         text-align: center;
     }
 </style>
@@ -115,7 +120,7 @@
         --customize-size: 24px;
     }
 
-    .icon > svg {
+    .icon>svg {
         will-change: width, height, stroke-width, stroke;
         color: var(--customize-color);
         width: var(--customize-size);
@@ -123,12 +128,13 @@
         stroke-width: calc(var(--customize-strokeWidth, 2) * 1px);
     }
 
-    html.absolute-stroke-width .icon > svg {
+    html.absolute-stroke-width .icon>svg {
         stroke-width: calc(var(--customize-strokeWidth, 2) * 24 / var(--customize-size, 24) * 1px);
     }
 
     .setting {
         margin-bottom: 15px;
+        width: 300px;
     }
 </style>
 <meta charset="utf8">
@@ -136,28 +142,33 @@
     <p>复制成功</p>
 </div>
 <div id="actions">
-    <span style="position: relative;">
-          样式设置
-          <div class="settings">
-        <div class="setting">
-            <label for="color">颜色</label>
-            <input type="color" id="color">
+    <span class="settings" style="position: relative;">
+        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="5551" width="16" height="16">
+            <path
+                d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0S464 796.8 368 736c-22.4-12.8-41.6-19.2-57.6-19.2-51.2 0-83.2 44.8-86.4 83.2z m336-124.8l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32 3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2h22.4c12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2z m-336-256c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2-28.8 0-51.2-22.4-51.2-51.2z m96-134.4c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6-22.4 0-41.6-19.2-41.6-41.6zM457.6 208c0-12.8 12.8-25.6 25.6-25.6s25.6 12.8 25.6 25.6-12.8 25.6-25.6 25.6-25.6-12.8-25.6-25.6zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32-211.2-3.2-380.8 169.6-380.8 384zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6l9.6-19.2C569.6 560 790.4 140.8 803.2 112c6.4-19.2-3.2-32-19.2-32-6.4-3.2-12.8 0-19.2 6.4z"
+                p-id="5552" fill="#2c2c2c"></path>
+        </svg>
+        <div  class="setting">
+            <div>
+                <label for="color">颜色</label>
+                <input type="color" id="color">
+            </div>
+            <div >
+                <label for="stroke-width">描边宽度</label>
+                <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
+                <span id="stroke-width-value">2px</span>
+            </div>
+            <div >
+                <label for="size">大小</label>
+                <input type="range" id="size" name="size" min="16" max="48" value="24">
+                <span id="size-value">24px</span>
+            </div>
+            <div >
+                <label for="absolute-stroke">固定描边宽度</label>
+                <input type="checkbox" id="absolute-stroke">
+            </div>
         </div>
-        <div class="setting">
-            <label for="stroke-width">描边宽度</label>
-            <input type="range" id="stroke-width" name="stroke-width" min="0.5" max="3" step="0.1" value="2">
-            <span id="stroke-width-value">2px</span>
-        </div>
-        <div class="setting">
-            <label for="size">大小</label>
-            <input type="range" id="size" name="size" min="16" max="48" value="24">
-            <span id="size-value">24px</span>
-        </div>
-        <div class="setting">
-            <label for="absolute-stroke">固定描边宽度</label>
-            <input type="checkbox" id="absolute-stroke">
-        </div>
-                </div>
     </span>
 
     驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
@@ -166,7 +177,7 @@
     <select style="padding: 4px" id="category-filter">
         <option value="">全部</option>
     </select>
-    <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
+    <input id="search" style="padding: 3px" type="search" placeholder="图标名称" />
 
 </div>
 <div id="categories"></div>
@@ -200,8 +211,7 @@
      </div>`, "text/html");
 
         async function addIconDiv(icon) {
-            let iconParse = new DOMParser().parseFromString(`<div data-name="${icons[icon]}" data-icon="${icon}" class="icon">
-                 <img loading="lazy" src="/icons/${icon}.svg" alt="${icons[icon]}">
+            let iconParse = new DOMParser().parseFromString(`<div data-name="${icons[icon]}" data-src="/icons/${icon}.svg" data-icon="${icon}" class="icon">
                  <div>
                         <div>${icons[icon]}</div>
                         <div>${icon}</div>
@@ -316,16 +326,17 @@
             },
             trigger: "hover"
         })
-        $('.icon > img').each(function () {
+        $('.icon').each(function () {
             setTimeout(() => {
-                const img = this;
-                let src = new URL(img.src).pathname;
+                let src = this.dataset.src;
+                if(!src) return
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', src, true);
+                let that = this
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
-                        img.parentNode.replaceChild(svg, img);
+                        that.prepend(svg);
                     }
                 };
                 xhr.send()
