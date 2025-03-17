@@ -361,22 +361,31 @@
         $(".settings > svg").click(function () {
             $(this).parent().toggleClass("in")
         })
-        $('.icon').each(function () {
-            setTimeout(() => {
-                let src = this.dataset.src;
-                if (!src) return
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', src, true);
-                let that = this
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
-                        that.prepend(svg);
+
+        // 使用 IntersectionObserver 来按需加载 SVG
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const src = entry.target.dataset.src;
+                    if (src) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', src, true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                const svg = new DOMParser().parseFromString(xhr.responseText, 'image/svg+xml').documentElement;
+                                entry.target.prepend(svg);
+                            }
+                        };
+                        xhr.send();
+                        observer.unobserve(entry.target);
                     }
-                };
-                xhr.send()
-            }, 50)
-        })
+                }
+            });
+        });
+
+        $('.icon').each(function () {
+            observer.observe(this);
+        });
     });
 </script>
 
