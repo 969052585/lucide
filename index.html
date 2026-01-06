@@ -1,12 +1,12 @@
 <title>Lucide 图标</title>
 <script src="index.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.css"
-    integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+      integrity="sha512-n48mMpd2Ez+soTQuZManEgeJeSeBNynyPL7S23uY5zKXZiEpKn529rl4Zu01ZiJEyJPBYMPp5AxNQD3XRh1oeg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webui-popover/1.2.18/jquery.webui-popover.min.js"
-    integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-c7jfqR4Yc1iFS3KA+EceHmO91hjSfqNZ6cu00AKBE62BmQq7EOoCVGGwjV/OoaEG1teTU9nY6gBuToAzFfxMSw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
     #actions {
@@ -28,8 +28,7 @@
     }
 
 
-
-    .settings>.setting {
+    .settings > .setting {
         display: none;
         z-index: 2;
         background: white;
@@ -41,12 +40,12 @@
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .settings:hover>.setting,
-    .settings.in>.setting {
+    .settings:hover > .setting,
+    .settings.in > .setting {
         display: unset;
     }
 
-    .settings>.setting {
+    .settings > .setting {
         max-width: 300px;
     }
 
@@ -61,33 +60,33 @@
         padding: 10px;
     }
 
-    .category>header {
+    .category > header {
         display: flex;
         align-items: center;
         font-weight: bold;
         margin-bottom: 5px;
     }
 
-    .category>header img {
+    .category > header img {
         height: 100%;
         margin-right: 10px;
     }
 
-    .category>main {
+    .category > main {
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
     }
 
-    .category>main img {
+    .category > main img {
         height: 40px;
     }
 
-    .settings.in>svg {
+    .settings.in > svg {
         fill: #1772F6;
     }
 
-    .category>main>.icon {
+    .category > main > .icon {
         min-width: 56px;
         min-height: 56px;
         display: flex;
@@ -98,7 +97,7 @@
         padding: 15px;
     }
 
-    .category>main>.icon>div {
+    .category > main > .icon > div {
         margin-left: 2px;
         display: none;
         flex-direction: column;
@@ -118,11 +117,11 @@
         z-index: 1000;
     }
 
-    .webui-popover .webui-popover-content>div:first-child {
+    .webui-popover .webui-popover-content > div:first-child {
         width: unset;
     }
 
-    .webui-popover .webui-popover-content>div {
+    .webui-popover .webui-popover-content > div {
         text-align: center;
     }
 </style>
@@ -156,7 +155,7 @@
         border: none;
     }
 
-    .icon>svg {
+    .icon > svg {
         will-change: width, height, stroke-width, stroke;
         color: var(--customize-color);
         width: var(--customize-size);
@@ -164,7 +163,7 @@
         stroke-width: calc(var(--customize-strokeWidth, 2) * 1px);
     }
 
-    html.absolute-stroke-width .icon>svg {
+    html.absolute-stroke-width .icon > svg {
         stroke-width: calc(var(--customize-strokeWidth, 2) * 24 / var(--customize-size, 24) * 1px);
     }
 
@@ -172,6 +171,40 @@
         margin-bottom: 15px;
         width: 300px;
     }
+
+    /* 基础容器样式 - 用于包裹整个单选组，你可以根据实际结构调整选择器 */
+    .radio-group {
+        display: flex;
+        gap: 8px;
+        margin-right: .25rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* 隐藏原生单选按钮（但保留功能） */
+    input[type="radio"] {
+        /* 隐藏原生样式但保留可点击性 */
+        appearance: none;
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    input[type="radio"] + label {
+        color: #999;
+        transition: all 0.2s ease;
+    }
+
+    input[type="radio"]:checked + label:before {
+        content: "✅";
+    }
+
+    input[type="radio"]:checked  + label {
+        color: #333;
+    }
+
+
 </style>
 <meta charset="utf8">
 <div id="popup">
@@ -180,10 +213,10 @@
 <div id="actions">
     <span class="settings" style="position: relative;">
         <svg title="样式设置" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5551"
-            width="24" height="24">
+             width="24" height="24">
             <path
-                d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0S464 796.8 368 736c-22.4-12.8-41.6-19.2-57.6-19.2-51.2 0-83.2 44.8-86.4 83.2z m336-124.8l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32 3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2h22.4c12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2z m-336-256c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2-28.8 0-51.2-22.4-51.2-51.2z m96-134.4c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6-22.4 0-41.6-19.2-41.6-41.6zM457.6 208c0-12.8 12.8-25.6 25.6-25.6s25.6 12.8 25.6 25.6-12.8 25.6-25.6 25.6-25.6-12.8-25.6-25.6zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32-211.2-3.2-380.8 169.6-380.8 384zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6l9.6-19.2C569.6 560 790.4 140.8 803.2 112c6.4-19.2-3.2-32-19.2-32-6.4-3.2-12.8 0-19.2 6.4z"
-                p-id="5552"></path>
+                    d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0S464 796.8 368 736c-22.4-12.8-41.6-19.2-57.6-19.2-51.2 0-83.2 44.8-86.4 83.2z m336-124.8l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32 3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2h22.4c12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2z m-336-256c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2-28.8 0-51.2-22.4-51.2-51.2z m96-134.4c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6-22.4 0-41.6-19.2-41.6-41.6zM457.6 208c0-12.8 12.8-25.6 25.6-25.6s25.6 12.8 25.6 25.6-12.8 25.6-25.6 25.6-25.6-12.8-25.6-25.6zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32-211.2-3.2-380.8 169.6-380.8 384zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6l9.6-19.2C569.6 560 790.4 140.8 803.2 112c6.4-19.2-3.2-32-19.2-32-6.4-3.2-12.8 0-19.2 6.4z"
+                    p-id="5552"></path>
         </svg>
         <div class="setting">
             <div style="display: flex; align-items: center;">
@@ -206,14 +239,19 @@
             </div>
         </div>
     </span>
-    <div>
-        驼峰 <input name="type" type="radio" checked="checked" value="驼峰">
-        烤肉串 <input name="type" type="radio" value="下划线">
-        SVG <input name="type" type="radio" value="SVG">
+    <div style="display: flex;align-items: center;">
+        <div class="radio-group">
+            <input id="radio1" name="type" type="radio" checked="checked" value="驼峰">
+            <label for="radio1">驼峰</label>
+            <input id="radio2" name="type" type="radio" value="下划线">
+            <label for="radio2">烤肉串</label>
+            <input id="radio3" name="type" type="radio" value="SVG">
+            <label for="radio3">SVG</label>
+        </div>
         <select style="padding: 4px" id="category-filter">
             <option value="">全部</option>
         </select>
-        <input id="search" style="padding: 3px" type="search" placeholder="图标名称" />
+        <input id="search" style="padding: 3px" type="search" placeholder="图标名称"/>
     </div>
 </div>
 <div id="categories"></div>
